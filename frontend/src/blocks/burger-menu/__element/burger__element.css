@@ -1,0 +1,16 @@
+.burger__element {
+  margin: 0;
+  align-self: center;
+  font-style: normal;
+  font-size: 18px;
+  line-height: 22px;
+  padding: 0;
+  font-weight: 500;
+  color: #ffffff;
+  text-decoration: none;
+  transition: opacity 0.4s;
+}
+
+.burger__element:hover {
+  opacity: 0.6;
+}
