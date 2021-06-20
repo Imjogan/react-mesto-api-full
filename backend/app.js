@@ -1,7 +1,6 @@
 const validator = require('validator');
 const express = require('express');
 const mongoose = require('mongoose');
-const path = require("path"); 
 const bodyParser = require('body-parser');
 const { errors, celebrate, Joi } = require('celebrate');
 const { requestedResourceNotFoundError } = require('./utils/errors');
@@ -64,5 +63,4 @@ app.use((err, req, res, next) => {
   });
 });
 
-app.use(express.static(path.join(__dirname, "public")));
 app.listen(PORT);
