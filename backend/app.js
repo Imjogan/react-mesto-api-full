@@ -8,6 +8,20 @@ const { login, createUser } = require('./controllers/users');
 const auth = require('./middlewares/auth');
 const { mongoosePreset } = require('./utils/constants');
 const NotFoundError = require('./errors/not-found-err');
+const cors = require('cors');
+
+const options = {
+  origin: [
+    'http://localhost:3000',
+    'http://mesto.mjogan.nomoredomains.club',
+    'https://imjogan.github.io/react-mesto-auth/',
+  ],
+  methods: ['GET', 'HEAD', 'PUT', 'PATCH', 'POST', 'DELETE'],
+  preflightContinue: false,
+  optionsSuccessStatus: 204,
+  allowedHeaders: ['Content-Type', 'origin', 'Authorization'],
+  credentials: true,
+};
 
 const { PORT = 3000 } = process.env;
 const app = express();
@@ -16,6 +30,8 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 mongoose.connect('mongodb://localhost:27017/mestodb', mongoosePreset);
+
+app.use('*', cors(options));
 
 app.post(
   '/signin',

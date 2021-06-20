@@ -1,4 +1,4 @@
-export const BASE_URL = 'https://auth.nomoreparties.co';
+export const BASE_URL = 'http://api.mesto.mjogan.nomoredomains.club';
 
 export const register = (password, email) => {
   return fetch(`${BASE_URL}/signup`, {
@@ -6,6 +6,7 @@ export const register = (password, email) => {
     headers: {
       'Content-Type': 'application/json',
     },
+    credentials: 'include',
     body: JSON.stringify({ password, email }),
   }).then((response) => {
     return response.json();
@@ -18,6 +19,7 @@ export const authorize = (password, email) => {
     headers: {
       'Content-Type': 'application/json',
     },
+    credentials: 'include',
     body: JSON.stringify({ password, email }),
   })
     .then((response) => response.json())
@@ -36,6 +38,7 @@ export const checkToken = (token) => {
       'Content-Type': 'application/json',
       Authorization: `Bearer ${token}`,
     },
+    credentials: 'include',
   })
     .then((res) => res.json())
     .then((data) => data);
