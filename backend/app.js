@@ -13,8 +13,8 @@ const cors = require('cors');
 const options = {
   origin: [
     'http://localhost:3000',
-    'http://mesto.mjogan.nomoredomains.club',
-    'https://imjogan.github.io/react-mesto-auth/',
+    'https://mesto.mjogan.nomoredomains.club',
+    'https://imjogan.github.io/react-mesto-auth',
   ],
   methods: ['GET', 'HEAD', 'PUT', 'PATCH', 'POST', 'DELETE'],
   preflightContinue: false,
