@@ -45,22 +45,6 @@ function App() {
 
   useEffect(() => {
     handleTokenCheck();
-    // if (authState.loggedIn) {
-    //   setDataLoading(true);
-    //   api
-    //   .getInitialData()
-    //   .then((data) => {
-    //     const [cards, userInfo] = data;
-    //     setCards(cards);
-    //     setCurrentUser(userInfo);
-    //   })
-    //   .catch((error) => {
-    //     console.log(error);
-    //   })
-    //   .finally(() => {
-    //     setDataLoading(false);
-    //   });
-    // }
   }, []);
 
   function handleCardLike(card) {
@@ -69,7 +53,6 @@ function App() {
     api
       .toggleCardLike(card._id, isLiked)
       .then((newCard) => {
-        console.log(newCard)
         setCards((prevCards) =>
           prevCards.map((prevCard) =>
             prevCard._id === card._id ? newCard : prevCard
@@ -191,7 +174,6 @@ function App() {
               .then((data) => {
                 setDataLoading(true);
                 const [cards, userInfo] = data;
-                console.log(cards)
                 setCards(cards);
                 setCurrentUser(userInfo);
               })

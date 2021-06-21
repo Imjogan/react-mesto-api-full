@@ -14,7 +14,10 @@ const { requestLogger, errorLogger } = require('./middlewares/logger');
 const options = {
   origin: [
     'http://localhost:3000',
+    'http://mesto.mjogan.nomoredomains.club',
     'https://mesto.mjogan.nomoredomains.club',
+    'http://api.mesto.mjogan.nomoredomains.club',
+    'https://api.mesto.mjogan.nomoredomains.club',
     'https://imjogan.github.io/react-mesto-auth',
   ],
   methods: ['GET', 'HEAD', 'PUT', 'PATCH', 'POST', 'DELETE'],
@@ -36,6 +39,12 @@ mongoose.connect('mongodb://localhost:27017/mestodb', mongoosePreset);
 app.use(requestLogger);
 
 app.use('*', cors(options));
+
+app.get('/crash-test', () => {
+  setTimeout(() => {
+    throw new Error('Сервер сейчас упадёт');
+  }, 0);
+});
 
 app.post(
   '/signin',
