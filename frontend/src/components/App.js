@@ -178,7 +178,7 @@ function App() {
   }
 
   const handleTokenCheck = () => {
-    setDataLoading(true);
+    
     const token = localStorage.getItem('token');
     if (token) {
       api.currentToken = token;
@@ -189,7 +189,9 @@ function App() {
             api
               .getInitialData()
               .then((data) => {
+                setDataLoading(true);
                 const [cards, userInfo] = data;
+                console.log(cards)
                 setCards(cards);
                 setCurrentUser(userInfo);
               })

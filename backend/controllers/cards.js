@@ -68,7 +68,7 @@ module.exports.likeCard = (req, res, next) => {
         { new: true },
       )
         .populate(['owner', 'likes'])
-        .orFail(new Error('NotFound'));
+        // .orFail(new Error('NotFound'));
       res.status(200).send(card);
     } catch (err) {
       if (err.message === 'NotFound') {
@@ -90,7 +90,7 @@ module.exports.dislikeCard = (req, res, next) => {
         { new: true },
       )
         .populate(['owner', 'likes'])
-        .orFail(new Error('NotFound'));
+        // .orFail(new Error('NotFound'));
       res.status(200).send(card);
     } catch (err) {
       if (err.message === 'NotFound') {
