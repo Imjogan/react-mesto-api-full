@@ -6,7 +6,6 @@ function Card({ getCard, card, onCardLike, onCardDelete }) {
   const currentUser = useContext(CurrentUserContext);
 
   // Определяем, являемся ли мы владельцем текущей карточки
-  console.log(card.owner._id, currentUser._id)
   const isOwn = card.owner._id === currentUser._id;
   const isLiked = card.likes.some(
     (likeOnCard) => likeOnCard._id === currentUser._id

@@ -31,7 +31,7 @@ function App() {
   const [selectedCard, setSelectedCard] = useState(null);
   const [currentUser, setCurrentUser] = useState({});
   const [cards, setCards] = useState([]);
-  const [dataLoading, setDataLoading] = useState(true);
+  const [dataLoading, setDataLoading] = useState(false);
   const [currentDeletionCard, setCurrentDeletionCard] = useState(null);
   const [isSubmittingProfileInfo, setIsSubmittingProfileInfo] = useState(false);
   const [isSubmittingCardAdd, setIsSubmittingCardAdd] = useState(false);
@@ -45,19 +45,22 @@ function App() {
 
   useEffect(() => {
     handleTokenCheck();
-    api
-      .getInitialData()
-      .then((data) => {
-        const [cards, userInfo] = data;
-        setCards(cards);
-        setCurrentUser(userInfo);
-      })
-      .catch((error) => {
-        console.log(error);
-      })
-      .finally(() => {
-        setDataLoading(false);
-      });
+    // if (authState.loggedIn) {
+    //   setDataLoading(true);
+    //   api
+    //   .getInitialData()
+    //   .then((data) => {
+    //     const [cards, userInfo] = data;
+    //     setCards(cards);
+    //     setCurrentUser(userInfo);
+    //   })
+    //   .catch((error) => {
+    //     console.log(error);
+    //   })
+    //   .finally(() => {
+    //     setDataLoading(false);
+    //   });
+    // }
   }, []);
 
   function handleCardLike(card) {
@@ -66,6 +69,7 @@ function App() {
     api
       .toggleCardLike(card._id, isLiked)
       .then((newCard) => {
+        console.log(newCard)
         setCards((prevCards) =>
           prevCards.map((prevCard) =>
             prevCard._id === card._id ? newCard : prevCard
@@ -174,6 +178,7 @@ function App() {
   }
 
   const handleTokenCheck = () => {
+    setDataLoading(true);
     const token = localStorage.getItem('token');
     if (token) {
       api.currentToken = token;
@@ -181,6 +186,20 @@ function App() {
         .checkToken(token)
         .then((res) => {
           if (res) {
+            api
+              .getInitialData()
+              .then((data) => {
+                const [cards, userInfo] = data;
+                setCards(cards);
+                setCurrentUser(userInfo);
+              })
+              .catch((error) => {
+                console.log(error);
+              })
+              .finally(() => {
+                setDataLoading(false);
+              });
+
             setAuthState({
               loggedIn: true,
               email: res.email,
