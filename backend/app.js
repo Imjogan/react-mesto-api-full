@@ -3,13 +3,13 @@ const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const { errors, celebrate, Joi } = require('celebrate');
+const cors = require('cors');
 const { requestedResourceNotFoundError } = require('./utils/errors');
 const { login, createUser } = require('./controllers/users');
 const auth = require('./middlewares/auth');
 const { mongoosePreset } = require('./utils/constants');
 const NotFoundError = require('./errors/not-found-err');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
-const cors = require('cors');
 
 const options = {
   origin: [

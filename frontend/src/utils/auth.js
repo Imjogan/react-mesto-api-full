@@ -23,10 +23,10 @@ export const authorize = (password, email) => {
     body: JSON.stringify({ password, email }),
   })
     .then((response) => response.json())
-    .then((data) => {
-      if (data) {
-        localStorage.setItem('token', data.token);
-        return data;
+    .then((token) => {
+      if (token) {
+        localStorage.setItem('token', token);
+        return token;
       }
     });
 };
@@ -41,5 +41,7 @@ export const checkToken = (token) => {
     credentials: 'include',
   })
     .then((res) => res.json())
-    .then((data) => data);
+    .then((data) => {
+      console.log(data);
+      return data});
 };

@@ -50,6 +50,7 @@ module.exports.getCurrentUser = (req, res, next) => {
       const currentUser = await User.findById(req.user._id).orFail(
         new Error('NotFound'),
       );
+      console.log(currentUser);
       res.status(200).send(currentUser);
     } catch (err) {
       if (err.message === 'NotFound') {
