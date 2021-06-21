@@ -176,13 +176,14 @@ function App() {
   const handleTokenCheck = () => {
     const token = localStorage.getItem('token');
     if (token) {
+      api.currentToken = token;
       auth
         .checkToken(token)
         .then((res) => {
           if (res) {
             setAuthState({
               loggedIn: true,
-              email: res.data.email,
+              email: res.email,
             });
             history.push('/');
           }
@@ -205,6 +206,7 @@ function App() {
       email: null,
     });
     localStorage.removeItem('token');
+    api.currentToken = '';
     history.push('/sign-in');
     setIsMobileMenuOpen(false);
   };

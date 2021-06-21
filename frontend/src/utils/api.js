@@ -4,11 +4,20 @@ class Api {
     this._headers = options.headers;
   }
 
+  #currentToken = '';
+  set currentToken(value) {
+    this.#currentToken = value;
+  }
+
   // получаем информацию о карточках
   getCards() {
     return fetch(`${this._baseUrl}/cards`, {
       method: 'GET',
-      headers: this._headers,
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${this.#currentToken}`
+      },
+      credentials: 'include',
     }).then((res) => {
       if (res.ok) {
         return res.json();
@@ -21,7 +30,11 @@ class Api {
   getUserInfo() {
     return fetch(`${this._baseUrl}/users/me`, {
       method: 'GET',
-      headers: this._headers,
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${this.#currentToken}`
+      },
+      credentials: 'include',
     }).then((res) => {
       if (res.ok) {
         return res.json();
@@ -38,7 +51,11 @@ class Api {
   setUserInfo(name, status) {
     return fetch(`${this._baseUrl}/users/me`, {
       method: 'PATCH',
-      headers: this._headers,
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${this.#currentToken}`
+      },
+      credentials: 'include',
       body: JSON.stringify({
         name: name,
         about: status,
@@ -55,7 +72,11 @@ class Api {
   createCard(name, link) {
     return fetch(`${this._baseUrl}/cards`, {
       method: 'POST',
-      headers: this._headers,
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${this.#currentToken}`
+      },
+      credentials: 'include',
       body: JSON.stringify({
         name: name,
         link: link,
@@ -72,7 +93,11 @@ class Api {
   deleteCard(cardId) {
     return fetch(`${this._baseUrl}/cards/${cardId}`, {
       method: 'DELETE',
-      headers: this._headers,
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${this.#currentToken}`
+      },
+      credentials: 'include',
     }).then((res) => {
       if (res.ok) {
         return res.json();
@@ -83,9 +108,13 @@ class Api {
 
   // ставим/убираем лайк
   toggleCardLike(cardId, hasLike) {
-    return fetch(`${this._baseUrl}/cards/likes/${cardId}`, {
+    return fetch(`${this._baseUrl}/cards/${cardId}/likes`, {
       method: hasLike ? 'DELETE' : 'PUT',
-      headers: this._headers,
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${this.#currentToken}`
+      },
+      credentials: 'include',
     }).then((res) => {
       if (res.ok) {
         return res.json();
@@ -98,7 +127,11 @@ class Api {
   updateAvatar(avatarUrl) {
     return fetch(`${this._baseUrl}/users/me/avatar`, {
       method: 'PATCH',
-      headers: this._headers,
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${this.#currentToken}`
+      },
+      credentials: 'include',
       body: JSON.stringify({
         avatar: avatarUrl,
       }),
@@ -113,12 +146,7 @@ class Api {
 
 // создаем класс для связи с сервером
 const api = new Api({
-  baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-21',
-  headers: {
-    // уникальный токен пользователя
-    authorization: 'a3ab0050-d01a-4f5a-9bb4-4a039b0aa641',
-    'Content-Type': 'application/json',
-  },
+  baseUrl: 'https://api.mesto.mjogan.nomoredomains.club',
 });
 
 export default api;
