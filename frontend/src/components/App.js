@@ -93,6 +93,7 @@ function App() {
     api
       .createCard(newCard.name, newCard.link)
       .then((res) => {
+        console.log(res)
         setCards([res, ...cards]);
         closeAllPopups();
       })
