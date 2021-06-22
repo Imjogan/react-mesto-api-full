@@ -14,6 +14,8 @@ const { requestLogger, errorLogger } = require('./middlewares/logger');
 const options = {
   origin: [
     'http://localhost:3000',
+    'http://84.252.137.18',
+    'https://84.252.137.18',
     'http://mesto.mjogan.nomoredomains.club',
     'https://mesto.mjogan.nomoredomains.club',
     'http://api.mesto.mjogan.nomoredomains.club',
