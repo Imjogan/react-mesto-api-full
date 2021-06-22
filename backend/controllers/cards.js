@@ -14,7 +14,7 @@ const {
 module.exports.getCards = (req, res, next) => {
   (async () => {
     try {
-      const cards = await Card.find({}).populate('owner').populate('likes');
+      const cards = await Card.find({}).populate('likes');
       res.status(200).send(cards);
     } catch (err) {
       next(err);
@@ -26,8 +26,7 @@ module.exports.createCard = (req, res, next) => {
   const { name, link } = req.body;
   (async () => {
     try {
-      const card = await Card.create({ name, link, owner: req.user });
-      // card = await card.populate('owner');
+      const card = await Card.create({ name, link, owner: req.user._id });
       res.status(201).send(card);
     } catch (err) {
       if (err.name === 'ValidationError') {
@@ -68,8 +67,6 @@ module.exports.likeCard = (req, res, next) => {
         { $addToSet: { likes: req.user._id } },
         { new: true },
       )
-        // .populate('owner', 'likes')
-        .populate('owner')
         .populate('likes')
         .orFail(new Error('NotFound'));
       res.status(200).send(card);
@@ -92,7 +89,6 @@ module.exports.dislikeCard = (req, res, next) => {
         { $pull: { likes: req.user._id } },
         { new: true },
       )
-        .populate('owner')
         .populate('likes')
         .orFail(new Error('NotFound'));
       res.status(200).send(card);
