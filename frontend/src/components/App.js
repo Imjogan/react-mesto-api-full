@@ -53,7 +53,6 @@ function App() {
     api
       .toggleCardLike(card._id, isLiked)
       .then((newCard) => {
-        console.log(newCard)
         setCards((prevCards) =>
           prevCards.map((prevCard) =>
             prevCard._id === card._id ? newCard : prevCard
@@ -93,7 +92,6 @@ function App() {
     api
       .createCard(newCard.name, newCard.link)
       .then((res) => {
-        console.log(res)
         setCards([res, ...cards]);
         closeAllPopups();
       })
