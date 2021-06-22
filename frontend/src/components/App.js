@@ -53,6 +53,7 @@ function App() {
     api
       .toggleCardLike(card._id, isLiked)
       .then((newCard) => {
+        console.log(newCard)
         setCards((prevCards) =>
           prevCards.map((prevCard) =>
             prevCard._id === card._id ? newCard : prevCard
